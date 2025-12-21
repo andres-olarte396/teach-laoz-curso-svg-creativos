@@ -1,0 +1,7 @@
+Imagina que tienes que mover una casa entera. ¿Mueves los ladrillos uno por uno, o levantas la casa completa y la llevas a otro lado? En SVG, el elemento grupo o ge es esa capacidad de tratar múltiples objetos como uno solo.
+
+Ge no dibuja nada por sí mismo. Es un contenedor invisible. Pero tiene dos superpoderes. Uno, Herencia: Si le pones relleno rojo al grupo, todos sus hijos serán rojos. Dos, Transformación conjunta: Puedes rotar, escalar o mover todo el grupo a la vez.
+
+Hablemos del atributo transform. La función más común es translate. Simplemente mueve el origen de coordenadas. Luego está rotate. Aquí hay una trampa: Por defecto, SVG rota sobre la esquina 0,0 del lienzo, ¡no sobre el centro del objeto! Si quieres rotar un planeta sobre su eje, necesitas decirle dónde está ese eje.
+
+Finalmente, ten cuidado con el orden. Translate y luego rotate NO es lo mismo que rotate y luego translate. Piensa en ello como caminar y luego girar, versus girar y luego caminar. Terminas en lugares muy distintos. ¡A experimentar con la caja mágica del grupo!

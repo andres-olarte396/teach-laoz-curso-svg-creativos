@@ -1,0 +1,7 @@
+Hasta ahora hemos jugado con sellos de goma, rectángulos, círculos. Muy bonitos, pero limitados. Hoy soltamos los sellos y agarramos la pluma estilográfica. Bienvenido al elemento paz. El elemento más poderoso de SVG. Con él, puedes dibujar literalmente cualquier cosa.
+
+El paz no usa atributos como equis o ancho. Usa un solo atributo maestro: de. Dentro de de, escribimos una serie de comandos de una letra. Imagina que diriges un robot. Eme mayúscula: Levanta la pluma y ve a tal sitio. Ele mayúscula: Baja la pluma y dibuja una línea hasta allá. Hache y Ve: Atajos para líneas Horizontales y Verticales. Perfectos para dibujar cajas o escaleras. Zeta: Cierra el camino, volviendo al punto de inicio.
+
+Aquí está el secreto que confunde a muchos. Las letras Mayúsculas como Eme y Ele son coordenadas ABSOLUTAS. Es decir, Ve al pixel 100, 100. Las minúsculas como eme y ele son RELATIVAS. Es decir, Muévete 10 píxeles a la derecha desde donde estás. Es la diferencia entre decir "Nos vemos en la Plaza Mayor", y "Camina dos cuadras al norte".
+
+Al principio, el código del paz parece una sopa de letras críptica. Pero una vez que aprendes a leer Move, Line, Close, ves la forma en tu mente antes de que el navegador la renderice. ¡Vamos a trazar!

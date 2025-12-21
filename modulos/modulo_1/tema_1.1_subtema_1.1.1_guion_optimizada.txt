@@ -1,0 +1,17 @@
+¡Hola! Bienvenido al módulo uno. Antes de empezar a correr, vamos a aprender a caminar geométricamente. Hoy descubriremos las Primitivas SVG. Piensa en ellas como plantillas o estarcidos que ya vienen listos en tu caja de herramientas.
+
+¿Por qué complicarte calculando cuatro líneas perfectas para hacer un cuadrado, si puedes simplemente pedirle al navegador un Rectángulo?
+
+Empecemos por lo básico, el elemento rect. Para dibujar uno, solo necesitas decirle dónde empieza, es decir, su equis y su ye, y por supuesto, su ancho y alto. ¿Quieres esquinas redondeadas? Fácil, usa los atributos erre equis y erre ye. Es así de directo.
+
+Ahora, mira el círculo. Aquí cambia un poco la lógica. No definimos una esquina, sino el centro exacto: ce equis y ce ye. Y luego, el radio erre. ¡Ojo aquí! Un error clásico es intentar usar equis e ye en un círculo. El navegador te ignorará olímpicamente. Círculo usa centro, rectángulo usa esquina.
+
+¿Y si quieres un círculo aplastado? Entonces usas elips. Es igual que el círculo, pero en lugar de un solo radio, tienes dos: radio equis y radio ye.
+
+Para dibujar líneas rectas, tenemos el elemento line. Punto A a Punto B. Sencillo, ¿verdad?
+
+Ahora subamos el nivel. ¿Qué pasa si quieres un triángulo, una estrella o un hexágono? Ahí entra el polígon. Aquí simplemente le das una lista de coordenadas en el atributo points. El navegador conectará los puntos en orden y, esto es clave, cerrará la forma automáticamente, conectando el último punto con el primero.
+
+Estas son tus piezas de Lego fundamentales. Rectángulos, círculos, elipses, líneas y polígonos. Aunque más adelante veremos el todopoderoso paz, que puede dibujarlo todo, usar estas primitivas hace que tu código sea legible y eficiente.
+
+¡Ahora es tu turno de ponerlas en práctica en el editor! Nos vemos en la siguiente lección.
