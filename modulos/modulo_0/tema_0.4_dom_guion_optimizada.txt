@@ -1,0 +1,7 @@
+Llegamos al concepto final: El DOM. Si vienes del diseño gráfico, esto te volará la cabeza. En Photoshop, cuando exportas una imagen, se acabó. Está muerta. Es estática.
+
+En ese uve ge, cada círculo, cada línea, cada letra sigue viva dentro del navegador. Son "nodos del DOM", igual que un párrafo de texto o un botón. ¿Qué significa esto? Que puedes usar CSS para cambiarles el color cuando el usuario pasa el mouse. Que puedes usar JavaScript para hacer que reboten cuando les haces clic.
+
+Un jota pe ge es una caja fuerte cerrada. No puedes tocar lo de adentro. Un ese uve ge es una caja de cristal abierta. Puedes meter la mano, reorganizar los muebles y volver a salir. Esa interactividad es el verdadero poder del ese uve ge en la web moderna.
+
+Con esto, tienes los 4 pilares: Vectores, Equis eme ele, Coordenadas y DOM. Ya no eres un turista. Eres un local. Nos vemos en el Módulo 1, donde escribiremos nuestra primera línea de código real: El Rectángulo.

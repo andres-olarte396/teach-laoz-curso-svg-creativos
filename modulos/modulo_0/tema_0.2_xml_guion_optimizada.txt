@@ -1,0 +1,7 @@
+SVG no es un formato de imagen binaria como jota pe ge. Es texto. Si abres un archivo ese uve ge con el Bloc de Notas, puedes leerlo. Y el idioma en el que está escrito se llama equis eme ele.
+
+Seguro conoces hache te eme ele. Hache te eme ele es permisivo. Si se te olvida cerrar una etiqueta, el navegador intenta arreglarlo. Equis eme ele no. Equis eme ele es estricto. Si olvidas una comilla en un atributo, todo el gráfico se rompe. Si escribes "Circle" con mayúscula en vez de minúscula, no aparece nada.
+
+Tres reglas para sobrevivir: Cierra siempre tus etiquetas. Pon comillas a todos los valores. Respeta las mayúsculas y minúsculas. Ese uve ge es código. Trátalo con el mismo respeto que tratas a JavaScript.
+
+Entender esto te ahorrará horas de frustración cuando un gráfico simplemente no aparezca. La mayoría de las veces, es solo un error de sintaxis. Ahora que sabemos escribir, aprendamos dónde dibujar.

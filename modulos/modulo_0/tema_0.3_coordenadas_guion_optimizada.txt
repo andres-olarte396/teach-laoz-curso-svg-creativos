@@ -1,0 +1,7 @@
+Ok, vamos a dibujar. Pero, ¿dónde? Necesitamos un mapa. El sistema de coordenadas. Si prestaste atención en clase de matemáticas, recuerdas el plano cartesiano. Una cruz. El centro es el cero absoluto. Bien, olvida eso. En la web es diferente.
+
+En ese uve ge, el punto cero-cero está arriba a la izquierda. En la esquina de tu pantalla. La equis funciona igual: hacia la derecha, aumentas. Pero la ye... la ye te va a traicionar si te descuidas. En ese uve ge, la ye aumenta hacia ABAJO.
+
+Piénsalo como la gravedad. O como leer una página web. Empiezas arriba. A medida que bajas, el número de línea aumenta. Si quieres subir un objeto, tienes que RESTAR a su coordenada ye. Si quieres bajarlo, SUMAS. Es contraintuitivo al principio, pero te acostumbrarás.
+
+Superior izquierda es cero, cero. Derecha es equis positivo. Abajo es ye positivo. Tatuátelo mentalmente. Lo usaremos en cada línea de código que escribamos.
