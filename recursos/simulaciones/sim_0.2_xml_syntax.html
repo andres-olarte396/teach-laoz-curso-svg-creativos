@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulación: El Inspector XML</title>
+    <style>
+        body { font-family: monospace; background: #272822; color: #f8f8f2; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .editor-container { background: #1e1e1e; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); width: 80%; max-width: 600px; }
+        .line { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; font-size: 1.2rem; }
+        .input-code { background: transparent; border: none; border-bottom: 2px solid #666; color: #a6e22e; font-family: monospace; font-size: 1.2rem; width: 100px; text-align: center; }
+        .input-code:focus { outline: none; border-bottom: 2px solid #f92672; }
+        .input-code.error { border-bottom: 2px solid #f92672; color: #f92672; }
+        .input-code.success { border-bottom: 2px solid #a6e22e; color: #a6e22e; }
+        
+        .preview { margin-top: 30px; width: 200px; height: 200px; border: 2px dashed #66d9ef; display: flex; justify-content: center; align-items: center; background: white; border-radius: 10px;}
+        button { margin-top: 20px; padding: 10px 20px; background: #66d9ef; border: none; font-size: 1rem; cursor: pointer; border-radius: 5px; font-weight: bold; }
+        button:hover { background: #3ec3db; }
+        
+        .hint { color: #fe9720; font-size: 0.9rem; margin-top: 5px; display: none; }
+    </style>
+</head>
+<body>
+    <h1>🛠️ Repara el Código XML</h1>
+    <p>Este SVG está roto. Corrige los errores de sintaxis para ver la imagen.</p>
+
+    <div class="editor-container">
+        <!-- Line 1: Missing closing bracket -->
+        <div class="line">
+            &lt;svg width="200" height="200"<input type="text" class="input-code" data-answer=">"> 
+        </div>
+        
+        <!-- Line 2: Case sensitivity -->
+        <div class="line">
+            &nbsp;&nbsp;&lt;<input type="text" class="input-code" data-answer="circle"> cx="100" cy="100" r="50"
+        </div>
+
+        <!-- Line 3: Missing Quotes -->
+        <div class="line">
+            &nbsp;&nbsp;&nbsp;&nbsp;fill=<input type="text" class="input-code" data-answer='"red"'> /&gt;
+        </div>
+
+        <!-- Line 4: Closing tag -->
+        <div class="line">
+            &lt;/<input type="text" class="input-code" data-answer="svg">&gt;
+        </div>
+    </div>
+
+    <button onclick="checkCode()">Compilar Código</button>
+    <div id="hint-box" class="hint"></div>
+
+    <div class="preview">
+        <div id="result-visual" style="color: #333;">(Sin imagen)</div>
+    </div>
+
+    <script>
+        function checkCode() {
+            const inputs = document.querySelectorAll('.input-code');
+            let allCorrect = true;
+            let hints = [];
+
+            inputs.forEach((input, index) => {
+                const val = input.value.trim();
+                const expected = input.getAttribute('data-answer');
+                
+                // Loose check for quotes
+                if(expected === '"red"' && (val === '"red"' || val === "'red'")) {
+                    input.classList.add('success');
+                    input.classList.remove('error');
+                }
+                else if (val === expected) {
+                    input.classList.add('success');
+                    input.classList.remove('error');
+                } else {
+                    input.classList.add('error');
+                    allCorrect = false;
+                    if(index === 0) hints.push("Línea 1: Falta cerrar la etiqueta de apertura.");
+                    if(index === 1) hints.push("Línea 2: Recuerda que SVG es sensible a mayúsculas (todo minúsculas).");
+                    if(index === 2) hints.push("Línea 3: Los atributos necesitan comillas.");
+                    if(index === 3) hints.push("Línea 4: ¿Cómo se cierra el elemento raíz?");
+                }
+            });
+
+            const resultBox = document.getElementById('result-visual');
+            const hintBox = document.getElementById('hint-box');
+
+            if (allCorrect) {
+                resultBox.innerHTML = '<svg width="150" height="150"><circle cx="75" cy="75" r="50" fill="red" /></svg>';
+                hintBox.style.display = 'none';
+                alert("¡Código Compilado! Has generado un SVG válido.");
+            } else {
+                resultBox.innerHTML = '❌ Error de Sintaxis';
+                hintBox.style.display = 'block';
+                hintBox.innerHTML = hints.join('<br>');
+            }
+        }
+    </script>
+</body>
+</html>

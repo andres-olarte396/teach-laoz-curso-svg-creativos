@@ -1,0 +1,44 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @keyframes orbit {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes pulse {
+      0% { r: 40; fill: #e74c3c; }
+      50% { r: 50; fill: #c0392b; }
+      100% { r: 40; fill: #e74c3c; }
+    }
+    .planet-system {
+      transform-origin: 250px 250px;
+      animation: orbit 10s linear infinite;
+    }
+    .sun {
+      animation: pulse 3s ease-in-out infinite;
+    }
+  </style>
+
+  <rect width="100%" height="100%" fill="#1a1a2e" />
+
+  <!-- Orbit Rings -->
+  <circle cx="250" cy="250" r="100" fill="none" stroke="#add8e6" stroke-opacity="0.2" stroke-width="1" />
+  <circle cx="250" cy="250" r="180" fill="none" stroke="#add8e6" stroke-opacity="0.1" stroke-width="1" />
+
+  <!-- Center Sun -->
+  <circle cx="250" cy="250" r="40" class="sun" />
+
+  <!-- Orbiting Group -->
+  <g class="planet-system">
+    <!-- Planet 1 -->
+    <circle cx="350" cy="250" r="20" fill="#3498db" />
+    
+    <!-- Planet 2 -->
+    <g transform="translate(70, 70)"> <!-- Offset orbit -->
+       <circle cx="0" cy="0" r="15" fill="#f1c40f" />
+    </g>
+  </g>
+  
+  <!-- Title -->
+  <text x="250" y="460" text-anchor="middle" font-family="sans-serif" font-size="24" fill="#fff" letter-spacing="2">ANIMATION</text>
+  <text x="250" y="480" text-anchor="middle" font-family="monospace" font-size="14" fill="#aaa">@keyframes</text>
+</svg>

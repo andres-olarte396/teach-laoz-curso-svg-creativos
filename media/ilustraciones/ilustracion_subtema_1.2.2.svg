@@ -1,0 +1,47 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .cp { fill: white; stroke: #333; stroke-width: 2; }
+    .line { stroke: #ccc; stroke-width: 1; stroke-dasharray: 4; }
+    .curve { fill: none; stroke: #3498db; stroke-width: 6; stroke-linecap: round; }
+    .text { font-family: 'Courier New', monospace; font-size: 14px; fill: #555; }
+  </style>
+
+  <rect width="100%" height="100%" fill="#f9f9f9" />
+
+  <!-- Title -->
+  <text x="250" y="450" text-anchor="middle" font-family="sans-serif" font-size="24" fill="#333" letter-spacing="2">THE PATH</text>
+
+  <g transform="translate(100, 150)">
+    <!-- Control Lines -->
+    <line x1="0" y1="200" x2="100" y2="0" class="line" />
+    <line x1="200" y1="0" x2="300" y2="200" class="line" />
+
+    <!-- The Cubic Bezier -->
+    <path d="M 0 200 C 100 0, 200 0, 300 200" class="curve" />
+
+    <!-- Points -->
+    <!-- Start -->
+    <circle cx="0" cy="200" r="6" fill="#e74c3c" />
+    <text x="-20" y="220" class="text" font-weight="bold">M</text>
+
+    <!-- Control 1 -->
+    <circle cx="100" cy="0" r="5" class="cp" />
+    <text x="90" y="-15" class="text">C1</text>
+
+    <!-- Control 2 -->
+    <circle cx="200" cy="0" r="5" class="cp" />
+    <text x="190" y="-15" class="text">C2</text>
+
+    <!-- End -->
+    <circle cx="300" cy="200" r="6" fill="#e74c3c" />
+    <text x="310" y="220" class="text" font-weight="bold">Dest</text>
+
+    <!-- Code Snippet -->
+    <g transform="translate(-20, 260)">
+      <rect width="340" height="40" rx="4" fill="#333" />
+      <text x="20" y="25" fill="#a6e22e" font-family="monospace" font-size="14">
+        &lt;path d="M0,200 C100,0..." /&gt;
+      </text>
+    </g>
+  </g>
+</svg>

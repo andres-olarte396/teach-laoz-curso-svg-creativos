@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulación: Explorador del DOM</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; display: flex; gap: 20px; padding: 20px; background: #ecf0f1; height: 100vh; margin: 0; box-sizing: border-box; }
+        
+        .panel { flex: 1; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        
+        h2 { margin-top: 0; color: #2c3e50; }
+
+        /* DOM Tree Styles */
+        .tree-node { margin-left: 20px; font-family: monospace; cursor: pointer; padding: 5px; border-radius: 4px; }
+        .tree-node:hover { background: #eee; }
+        .tree-node.active { background: #dff9fb; border: 1px solid #c7ecee; font-weight: bold; color: #2980b9; }
+        
+        .tag { color: #8e44ad; }
+        .attr { color: #d35400; }
+        .val { color: #2ecc71; }
+
+        /* Controls */
+        #controls { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; display: none; }
+        
+        input[type=color] { height: 40px; width: 100px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <!-- Left: The Visual -->
+    <div class="panel">
+        <h2>Vista Resultante</h2>
+        <div style="flex:1; display: flex; justify-content: center; align-items: center; background: #bdc3c7;">
+            <svg id="main-svg" width="300" height="300" viewBox="0 0 300 300" style="background: white; box-shadow: 0 0 20px rgba(0,0,0,0.2);">
+                <g id="group-sun">
+                    <circle id="sun-body" cx="150" cy="150" r="50" fill="#f1c40f" />
+                    <line id="ray-1" x1="150" y1="80" x2="150" y2="40" stroke="#f39c12" stroke-width="5" />
+                    <line id="ray-2" x1="150" y1="220" x2="150" y2="260" stroke="#f39c12" stroke-width="5" />
+                    <line id="ray-3" x1="80" y1="150" x2="40" y2="150" stroke="#f39c12" stroke-width="5" />
+                    <line id="ray-4" x1="220" y1="150" x2="260" y2="150" stroke="#f39c12" stroke-width="5" />
+                </g>
+            </svg>
+        </div>
+        <p style="font-size: 0.9em; color: gray;">Haz clic en los elementos del dibujo para seleccionarlos en el árbol.</p>
+    </div>
+
+    <!-- Right: The Tree -->
+    <div class="panel">
+        <h2>Árbol del DOM</h2>
+        <div id="tree-view">
+            <div class="tree-node" data-target="main-svg">&lt;<span class="tag">svg</span>&gt;</div>
+            <div class="tree-node" data-target="group-sun" style="margin-left: 40px;">&lt;<span class="tag">g</span> <span class="attr">id</span>=<span class="val">"group-sun"</span>&gt;</div>
+            <div class="tree-node" data-target="sun-body" style="margin-left: 60px;">&lt;<span class="tag">circle</span> <span class="attr">id</span>=<span class="val">"sun-body"</span> /&gt;</div>
+            <div class="tree-node" data-target="ray-1" style="margin-left: 60px;">&lt;<span class="tag">line</span> <span class="attr">id</span>=<span class="val">"ray-1"</span> /&gt;</div>
+            <div class="tree-node" data-target="ray-2" style="margin-left: 60px;">&lt;<span class="tag">line</span> <span class="attr">id</span>=<span class="val">"ray-2"</span> /&gt;</div>
+            <div class="tree-node" data-target="ray-3" style="margin-left: 60px;">&lt;<span class="tag">line</span> <span class="attr">id</span>=<span class="val">"ray-3"</span> /&gt;</div>
+            <div class="tree-node" data-target="ray-4" style="margin-left: 60px;">&lt;<span class="tag">line</span> <span class="attr">id</span>=<span class="val">"ray-4"</span> /&gt;</div>
+            <div class="tree-node" data-target="group-sun" style="margin-left: 40px;">&lt;/<span class="tag">g</span>&gt;</div>
+            <div class="tree-node" data-target="main-svg">&lt;/<span class="tag">svg</span>&gt;</div>
+        </div>
+
+        <div id="controls">
+            <h3>Propiedades del Nodo: <span id="selected-id" style="color:#2980b9">Nada</span></h3>
+            <label>Color de Relleno (Fill): </label>
+            <input type="color" id="fill-control">
+            <br><br>
+            <label>Opacidad: <span id="op-val">1</span></label>
+            <input type="range" id="opacity-control" min="0" max="1" step="0.1" value="1" style="width: 100%;">
+        </div>
+    </div>
+
+    <script>
+        const nodes = document.querySelectorAll('.tree-node');
+        const controls = document.getElementById('controls');
+        const selectedLabel = document.getElementById('selected-id');
+        const fillControl = document.getElementById('fill-control');
+        const opacityControl = document.getElementById('opacity-control');
+        
+        let activeElement = null;
+
+        // Visual to Tree logic
+        const svgElements = ['main-svg', 'group-sun', 'sun-body', 'ray-1', 'ray-2', 'ray-3', 'ray-4'];
+        svgElements.forEach(id => {
+            const el = document.getElementById(id);
+            el.addEventListener('click', (e) => {
+                e.stopPropagation(); // Stop bubbling to parent group
+                selectNode(id);
+            });
+        });
+
+        // Tree to Visual logic
+        nodes.forEach(node => {
+            node.addEventListener('click', () => {
+                const targetId = node.getAttribute('data-target');
+                if(targetId) selectNode(targetId);
+            });
+        });
+
+        function selectNode(id) {
+            // Remove active classes
+            nodes.forEach(n => n.classList.remove('active'));
+            // Highlight tree node(s) with this target
+            const targetNodes = document.querySelectorAll(`.tree-node[data-target="${id}"]`);
+            targetNodes.forEach(n => n.classList.add('active'));
+
+            activeElement = document.getElementById(id);
+            selectedLabel.textContent = '#' + id;
+            controls.style.display = 'block';
+
+            // Sync controls
+            let fill = activeElement.getAttribute('fill') || '#000000';
+            if(fill === 'none') fill = '#ffffff'; 
+            // Color input is picky, needs hex. If named color (like 'white' in css), it might fail sync unless we convert. 
+            // For this sim, we mostly used hex in SVG so it's fine.
+            fillControl.value = fill;
+            
+            let op = activeElement.getAttribute('opacity') || 1;
+            opacityControl.value = op;
+        }
+
+        fillControl.addEventListener('input', (e) => {
+            if(activeElement) {
+                activeElement.setAttribute('fill', e.target.value);
+                // Also stroke if it's a line
+                if(activeElement.tagName === 'line') {
+                    activeElement.setAttribute('stroke', e.target.value);
+                }
+            }
+        });
+
+        opacityControl.addEventListener('input', (e) => {
+            if(activeElement) {
+                activeElement.setAttribute('opacity', e.target.value);
+                document.getElementById('op-val').textContent = e.target.value;
+            }
+        });
+
+    </script>
+</body>
+</html>

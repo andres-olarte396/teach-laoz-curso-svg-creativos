@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulación: Transformaciones</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #e0f7fa; color: #006064; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .stage { position: relative; width: 400px; height: 400px; border: 2px solid #0097a7; background: white; margin-top: 20px; }
+        .controls { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); width: 400px; margin-top: 10px; }
+        .slider-group { margin-bottom: 10px; }
+        label { display: inline-block; width: 100px; font-weight: bold; }
+        
+        .code-box { background: #263238; color: #80cbc4; padding: 10px; font-family: monospace; width: 400px; margin-top: 10px; border-radius: 4px; }
+        
+        /* Grid */
+        .origin-marker { position: absolute; width: 10px; height: 10px; background: red; border-radius: 50%; opacity: 0.5; pointer-events: none; transform: translate(-50%, -50%); }
+    </style>
+</head>
+<body>
+    <h1>🔄 Laboratorio de Transformaciones</h1>
+    <p>Ajusta los valores para mover, rotar y escalar al robot.</p>
+
+    <div class="stage">
+        <svg width="100%" height="100%" viewBox="0 0 400 400">
+            <!-- Grid -->
+            <defs>
+                <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+                    <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#ddd" stroke-width="1"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+            
+            <!-- Ghost (Original Position) -->
+            <g opacity="0.2">
+                <rect x="150" y="150" width="100" height="100" fill="#00bcd4" />
+                <circle cx="170" cy="180" r="10" fill="white" />
+                <circle cx="230" cy="180" r="10" fill="white" />
+                <rect x="180" y="210" width="40" height="10" fill="white" />
+            </g>
+
+            <!-- The Active Group -->
+            <g id="active-group">
+                <rect x="150" y="150" width="100" height="100" fill="#0097a7" />
+                <circle cx="170" cy="180" r="10" fill="white" />
+                <circle cx="230" cy="180" r="10" fill="white" />
+                <rect x="180" y="210" width="40" height="10" fill="white" />
+                
+                <!-- Center point visualizer derived from transform-origin is hard in pure SVG attributes without CSS, 
+                     so we will conceptually rotate around 0,0 unless logic changes. 
+                     For this sim, we apply transform="translate() rotate() scale()" 
+                -->
+            </g>
+            
+            <!-- Origin Visual -->
+            <circle cx="200" cy="200" r="5" fill="red" />
+            <text x="210" y="200" fill="red" font-size="12">Centro SVG (200,200)</text>
+        </svg>
+    </div>
+
+    <div class="controls">
+        <div class="slider-group">
+            <label>Translate X:</label>
+            <input type="range" id="tx" min="-150" max="150" value="0"> <span id="v-tx">0</span>
+        </div>
+        <div class="slider-group">
+            <label>Translate Y:</label>
+            <input type="range" id="ty" min="-150" max="150" value="0"> <span id="v-ty">0</span>
+        </div>
+        <div class="slider-group">
+            <label>Rotate (°):</label>
+            <input type="range" id="rot" min="0" max="360" value="0"> <span id="v-rot">0</span>
+        </div>
+        <div class="slider-group">
+            <label>Scale:</label>
+            <input type="range" id="sc" min="0.1" max="2" step="0.1" value="1"> <span id="v-sc">1</span>
+        </div>
+    </div>
+
+    <div class="code-box" id="code-output">
+        transform="translate(0, 0) rotate(0) scale(1)"
+    </div>
+
+    <script>
+        const group = document.getElementById('active-group');
+        const codeOut = document.getElementById('code-output');
+        
+        const inputs = {
+            tx: document.getElementById('tx'),
+            ty: document.getElementById('ty'),
+            rot: document.getElementById('rot'),
+            sc: document.getElementById('sc')
+        };
+        
+        const displays = {
+            tx: document.getElementById('v-tx'),
+            ty: document.getElementById('v-ty'),
+            rot: document.getElementById('v-rot'),
+            sc: document.getElementById('v-sc')
+        };
+
+        function update() {
+            const tx = inputs.tx.value;
+            const ty = inputs.ty.value;
+            const rot = inputs.rot.value;
+            const sc = inputs.sc.value;
+
+            // Update Text
+            displays.tx.textContent = tx;
+            displays.ty.textContent = ty;
+            displays.rot.textContent = rot;
+            displays.sc.textContent = sc;
+
+            // The order matters!
+            // SVG transforms are applied right to left mathematically, but in string it looks sequential.
+            // Usually: Translate -> Rotate -> Scale is most intuitive for users.
+            
+            // Note about Rotate: SVG rotate(angle, cx, cy) allows defining a center. 
+            // If we just say rotate(angle), it rotates around 0,0 (top left).
+            // To make it intuitive, let's rotate around the center of the object (200,200 is center of stage, object is centered there).
+            
+            const transformString = `translate(${tx}, ${ty}) rotate(${rot}, 200, 200) scale(${sc})`;
+            
+            group.setAttribute('transform', transformString);
+            codeOut.textContent = `transform="${transformString}"`;
+        }
+
+        Object.values(inputs).forEach(i => i.addEventListener('input', update));
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulación: Eventos SVG</title>
+    <style>
+        body { font-family: monospace; display: flex; gap: 20px; padding: 20px; background: #f0f0f0; }
+        .canvas { background: white; border: 1px solid #ccc; cursor: default; }
+        .log-panel { flex: 1; background: #222; color: #0f0; padding: 10px; height: 400px; overflow-y: auto; border-radius: 4px; font-size: 0.9rem; }
+        
+        /* CSS Interactions */
+        .interactive { transition: all 0.2s; cursor: pointer; }
+        .interactive:hover { stroke: black; stroke-width: 4; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3)); }
+        .interactive:active { transform: scale(0.95); opacity: 0.8; }
+        
+        /* Specific states */
+        #circle-btn:hover { fill: #e74c3c; }
+        #rect-btn:hover { fill: #3498db; }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>🖱️ Parque de Eventos</h1>
+        <svg width="400" height="400" class="canvas">
+             <text x="50%" y="30" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#888">Pasa el mouse, haz clic, arrastra...</text>
+
+            <rect id="rect-btn" class="interactive" x="50" y="50" width="100" height="100" fill="#bbb" rx="10" transform-origin="100 100" />
+            <circle id="circle-btn" class="interactive" cx="250" cy="100" r="50" fill="#bbb" transform-origin="250 100" />
+            
+            <g id="group-btn" class="interactive" transform="translate(100, 200)">
+                 <rect width="200" height="60" fill="#27ae60" rx="30" />
+                 <text x="100" y="38" text-anchor="middle" fill="white" font-family="sans-serif" font-weight="bold" font-size="20">CLICK ME</text>
+            </g>
+        </svg>
+    </div>
+
+    <div class="log-panel" id="logger">
+        > Console Ready...
+    </div>
+
+    <script>
+        const logger = document.getElementById('logger');
+        
+        function log(msg) {
+            const time = new Date().toLocaleTimeString();
+            logger.innerHTML += `<div>[${time}] ${msg}</div>`;
+            logger.scrollTop = logger.scrollHeight;
+        }
+
+        const ids = ['rect-btn', 'circle-btn', 'group-btn'];
+        
+        ids.forEach(id => {
+            const el = document.getElementById(id);
+            
+            el.addEventListener('mouseenter', () => log(`MouseEnter: ${id}`));
+            el.addEventListener('mouseleave', () => log(`MouseLeave: ${id}`));
+            el.addEventListener('mousedown', () => log(`MouseDown: ${id}`));
+            el.addEventListener('mouseup', () => log(`MouseUp: ${id}`));
+            el.addEventListener('click', () => log(`<span style="color:yellow">CLICK</span>: ${id}`));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulación: Stroke DashArray</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; background: #222; color: white; padding: 20px; }
+        .canvas { background: #333; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .controls { width: 400px; margin-top: 20px; background: #444; padding: 20px; border-radius: 8px; }
+        label { display: block; margin-bottom: 15px; }
+        input[type=range] { width: 100%; }
+        .val { float: right; color: #f1c40f; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>✏️ El Truco del Auto-Dibujado</h1>
+    <p>Ajusta <code>stroke-dasharray</code> y <code>stroke-dashoffset</code>.</p>
+
+    <svg width="400" height="300" class="canvas">
+        <!-- Background guide -->
+        <path d="M 50 150 Q 200 50 350 150 T 350 250" fill="none" stroke="#555" stroke-width="10" />
+        
+        <!-- The animated path -->
+        <path id="path" d="M 50 150 Q 200 50 350 150 T 350 250" fill="none" stroke="#f1c40f" stroke-width="10" stroke-linecap="round" />
+    </svg>
+
+    <div class="controls">
+        <label>
+            Longitud Total: <span id="total-len" class="val">Loading...</span>
+        </label>
+        
+        <label>
+            Stroke DashArray: <span id="v-array" class="val">0</span>
+            <input type="range" id="array" min="0" max="1000" value="0">
+        </label>
+        
+        <label>
+            Stroke DashOffset: <span id="v-offset" class="val">0</span>
+            <input type="range" id="offset" min="-1000" max="1000" value="0">
+        </label>
+
+        <button onclick="animateSelf()">▶️ Animar Automáticamente</button>
+    </div>
+
+    <script>
+        const path = document.getElementById('path');
+        const sliderArray = document.getElementById('array');
+        const sliderOffset = document.getElementById('offset');
+        const vArray = document.getElementById('v-array');
+        const vOffset = document.getElementById('v-offset');
+        const lenDisplay = document.getElementById('total-len');
+
+        // Measure path length
+        const length = Math.ceil(path.getTotalLength());
+        lenDisplay.textContent = length + 'px';
+
+        // Update max values based on length
+        sliderArray.max = length * 2; // Allow some extra
+        sliderOffset.max = length;
+        sliderOffset.min = -length;
+
+        function update() {
+            const arr = sliderArray.value;
+            const off = sliderOffset.value;
+            
+            vArray.textContent = arr;
+            vOffset.textContent = off;
+
+            path.style.strokeDasharray = arr;
+            path.style.strokeDashoffset = off;
+        }
+
+        sliderArray.addEventListener('input', update);
+        sliderOffset.addEventListener('input', update);
+
+        function animateSelf() {
+            // Setup for draw effect
+            sliderArray.value = length;
+            sliderOffset.value = length; // Start hidden
+            update();
+
+            // Simple JS Animation loop
+            let start = null;
+            function step(timestamp) {
+                if (!start) start = timestamp;
+                const progress = timestamp - start;
+                const duration = 2000; // 2s
+                
+                // Linear 
+                let newOffset = length - (length * (progress / duration));
+                if (newOffset < 0) newOffset = 0;
+                
+                sliderOffset.value = newOffset;
+                update();
+
+                if (progress < duration) {
+                    window.requestAnimationFrame(step);
+                }
+            }
+            window.requestAnimationFrame(step);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulación: El Sello Defs/Use</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #fff3e0; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .canvas-container { margin-top: 20px; border: 2px solid #ff9800; background: white; cursor: copy; }
+        .controls { margin-top: 20px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
+        
+        .code-log { background: #3e2723; color: #dcedc8; padding: 10px; width: 500px; height: 150px; overflow-y: auto; font-family: monospace; margin-top: 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>📑 El Sello Mágico (&lt;use&gt;)</h1>
+    <p>Hemos definido un objeto complejo en <code>&lt;defs&gt;</code>. Haz clic para estampar copias ligeras.</p>
+
+    <div class="controls">
+        <label>Color del Sello Original:</label>
+        <!-- This changes the def definition -->
+        <input type="color" id="def-color" value="#e91e63">
+        <button onclick="clearCanvas()">Limpiar</button>
+    </div>
+
+    <div class="canvas-container">
+        <svg id="canvas" width="500" height="300">
+            <defs>
+                <!-- Complex object defined once -->
+                <symbol id="my-stamp" viewBox="0 0 50 50">
+                    <circle cx="25" cy="25" r="20" fill="var(--main-color, #e91e63)" stroke="black" stroke-width="2" />
+                    <rect x="15" y="15" width="20" height="20" fill="white" rx="5" />
+                    <text x="25" y="30" text-anchor="middle" font-size="10">SVG</text>
+                </symbol>
+            </defs>
+            <rect width="100%" height="100%" fill="white" stroke="#eee" />
+            
+            <!-- We will append <use> elements here -->
+        </svg>
+    </div>
+
+    <div class="code-log" id="log">
+        &lt;defs&gt;
+          &lt;symbol id="my-stamp" ... /&gt;
+        &lt;/defs&gt;
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const colorInput = document.getElementById('def-color');
+        const log = document.getElementById('log');
+
+        function logLine(text) {
+            log.innerHTML += `<div>${text}</div>`;
+            log.scrollTop = log.scrollHeight;
+        }
+
+        colorInput.addEventListener('input', (e) => {
+            // Update the CSS variable or attribute of the symbol
+            // Since it's inside a symbol, accessing it directly via DOM is fine, 
+            // but to show the power of variables, let's set a CSS var on the svg root
+            canvas.style.setProperty('--main-color', e.target.value);
+            logLine(`&lt;style&gt; :root { --main-color: ${e.target.value} } &lt;/style&gt;`);
+        });
+
+        canvas.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = Math.round(e.clientX - rect.left);
+            const y = Math.round(e.clientY - rect.top);
+
+            // Create <use>
+            const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+            use.setAttribute('href', '#my-stamp'); // Modern syntax. Fallback xlink:href not strictly needed in modern browsers.
+            use.setAttribute('x', x - 25); // Center it (stamp is 50x50)
+            use.setAttribute('y', y - 25);
+            use.setAttribute('width', 50);
+            use.setAttribute('height', 50);
+            
+            // Random rotation? Transform works on use
+            const rot = Math.floor(Math.random() * 360);
+            use.setAttribute('transform', `rotate(${rot}, ${x}, ${y})`);
+
+            canvas.appendChild(use);
+
+            logLine(`&lt;use href="#my-stamp" x="${x-25}" y="${y-25}" transform="..." /&gt;`);
+        });
+
+        function clearCanvas() {
+            // Remove all 'use' tags
+            const uses = canvas.querySelectorAll('use');
+            uses.forEach(u => u.remove());
+            log.innerHTML = `
+                &lt;defs&gt;
+                  &lt;symbol id="my-stamp" ... /&gt;
+                &lt;/defs&gt;
+            `;
+        }
+    </script>
+</body>
+</html>

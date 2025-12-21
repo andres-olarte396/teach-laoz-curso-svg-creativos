@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulación: Editor de Gradientes</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; background: #333; color: white; }
+        .stage { margin-top: 20px; }
+        .controls { background: #444; padding: 20px; border-radius: 8px; width: 400px; margin-top: 20px; }
+        .stop-row { display: flex; gap: 10px; margin-bottom: 5px; align-items: center; }
+        code { display: block; background: #222; padding: 10px; margin-top: 20px; width: 400px; }
+    </style>
+</head>
+<body>
+    <h1>🌈 Laboratorio de Color</h1>
+    
+    <div class="stage">
+        <svg width="400" height="200" style="background: white;">
+            <defs>
+                <linearGradient id="myGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop id="stop1" offset="0%" stop-color="#ff0000" />
+                    <stop id="stop2" offset="100%" stop-color="#0000ff" />
+                </linearGradient>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#myGrad)" />
+            <text x="50%" y="50%" text-anchor="middle" fill="white" font-size="24" font-weight="bold" style="text-shadow: 1px 1px 2px black;">GRADIENT POWER</text>
+        </svg>
+    </div>
+
+    <div class="controls">
+        <label>Dirección (x2):</label>
+        <input type="range" id="dir" min="0" max="100" value="100">
+        
+        <h3>Paradas de Color</h3>
+        <div class="stop-row">
+            <span>Stop 1:</span>
+            <input type="color" id="c1" value="#ff0000">
+            <input type="range" id="o1" min="0" max="100" value="0">
+        </div>
+        <div class="stop-row">
+            <span>Stop 2:</span>
+            <input type="color" id="c2" value="#0000ff">
+            <input type="range" id="o2" min="0" max="100" value="100">
+        </div>
+    </div>
+    
+    <code id="code-out">
+        &lt;linearGradient ... &gt;
+    </code>
+
+    <script>
+        const grad = document.getElementById('myGrad');
+        const s1 = document.getElementById('stop1');
+        const s2 = document.getElementById('stop2');
+        const code = document.getElementById('code-out');
+        
+        const inputs = {
+            dir: document.getElementById('dir'),
+            c1: document.getElementById('c1'),
+            o1: document.getElementById('o1'),
+            c2: document.getElementById('c2'),
+            o2: document.getElementById('o2')
+        };
+
+        function update() {
+            grad.setAttribute('x2', inputs.dir.value + '%');
+            // y2 depends on angle logic but for simpler linear L-R usually y1=y2. 
+            // Let's keep it horizontal-ish logic for simplicity (just x2 change)
+            
+            s1.setAttribute('stop-color', inputs.c1.value);
+            s1.setAttribute('offset', inputs.o1.value + '%');
+            
+            s2.setAttribute('stop-color', inputs.c2.value);
+            s2.setAttribute('offset', inputs.o2.value + '%');
+
+            code.textContent = `<linearGradient x1="0%" y1="0%" x2="${inputs.dir.value}%" y2="0%">\n  <stop offset="${inputs.o1.value}%" stop-color="${inputs.c1.value}" />\n  <stop offset="${inputs.o2.value}%" stop-color="${inputs.c2.value}" />\n</linearGradient>`;
+        }
+
+        Object.values(inputs).forEach(i => i.addEventListener('input', update));
+        update();
+    </script>
+</body>
+</html>

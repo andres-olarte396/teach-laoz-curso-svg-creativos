@@ -1,0 +1,37 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <!-- Grid -->
+  <defs>
+    <pattern id="gridC" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#eee" stroke-width="1"/>
+    </pattern>
+    <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#e74c3c" />
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L9,3 z" fill="#3498db" />
+      </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="white" />
+  <rect width="100%" height="100%" fill="url(#gridC)" />
+
+  <text x="250" y="450" text-anchor="middle" font-family="sans-serif" font-size="24" fill="#333">COORDINATE SYSTEM</text>
+
+  <!-- ORIGIN -->
+  <circle cx="0" cy="0" r="10" fill="#2c3e50" />
+  <text x="15" y="25" font-family="monospace" font-size="16" font-weight="bold">(0,0)</text>
+
+  <!-- AXIS X -->
+  <line x1="0" y1="0" x2="400" y2="0" stroke="#3498db" stroke-width="5" marker-end="url(#arrowBlue)" />
+  <text x="200" y="30" fill="#3498db" font-family="sans-serif" font-weight="bold">+X (Derecha)</text>
+
+  <!-- AXIS Y -->
+  <line x1="0" y1="0" x2="0" y2="400" stroke="#e74c3c" stroke-width="5" marker-end="url(#arrowRed)" />
+  <text x="20" y="200" fill="#e74c3c" font-family="sans-serif" font-weight="bold" transform="rotate(90, 20, 200)">+Y (Abajo)</text>
+  
+  <!-- Example Point -->
+  <circle cx="200" cy="150" r="8" fill="#f1c40f" />
+  <line x1="200" y1="0" x2="200" y2="150" stroke="#f1c40f" stroke-dasharray="4" />
+  <line x1="0" y1="150" x2="200" y2="150" stroke="#f1c40f" stroke-dasharray="4" />
+  <text x="210" y="145" font-family="monospace" fill="#555">(200, 150)</text>
+
+</svg>

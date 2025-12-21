@@ -1,0 +1,51 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <!-- Grid for visualization -->
+  <defs>
+    <pattern id="smallGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#eee" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#smallGrid)" />
+
+  <text x="250" y="50" text-anchor="middle" font-family="sans-serif" font-size="24" fill="#333">GRUPOS &amp; TRANSFORM</text>
+
+  <!-- ORIGIN -->
+  <g transform="translate(100, 150)">
+    <circle r="5" fill="#333"/>
+    <text x="10" y="5" font-family="monospace" font-size="12">0,0 (Local)</text>
+    
+    <!-- GROUP 1: ROBOT ARM -->
+    <g id="upper-arm" transform="rotate(-30)">
+        <rect x="0" y="-10" width="120" height="20" rx="10" fill="#3498db" />
+        <circle cx="0" cy="0" r="8" fill="#ecf0f1" stroke="#2980b9" stroke-width="2"/>
+        
+        <!-- GROUP 2: FOREARM (Nested) -->
+        <g id="forearm" transform="translate(110, 0) rotate(60)">
+            <rect x="0" y="-8" width="100" height="16" rx="8" fill="#e74c3c" />
+            <circle cx="0" cy="0" r="6" fill="#ecf0f1" stroke="#c0392b" stroke-width="2"/>
+            
+            <!-- GROUP 3: CLAW -->
+            <g id="claw" transform="translate(95, 0) rotate(-15)">
+                <path d="M0,0 L20,-10 L30,-5 L20,0 L30,5 L20,10 Z" fill="#f1c40f" />
+                <circle cx="0" cy="0" r="4" fill="#333"/>
+            </g>
+        </g>
+    </g>
+  </g>
+
+  <!-- Explanatory lines -->
+  <g stroke="#7f8c8d" stroke-width="1" stroke-dasharray="4">
+      <line x1="100" y1="150" x2="250" y2="400" />
+      <text x="100" y="380" font-family="sans-serif" font-size="14" fill="#555" transform="rotate(45, 100, 380)">Hierarchical nesting</text>
+  </g>
+
+  <!-- Code snippet -->
+  <g transform="translate(250, 300)">
+      <rect width="220" height="100" rx="5" fill="#2c3e50" />
+      <text x="10" y="25" fill="#e67e22" font-family="monospace" font-size="12">&lt;g id="arm"&gt;</text>
+      <text x="20" y="45" fill="#e67e22" font-family="monospace" font-size="12">&lt;g id="forearm"&gt;</text>
+      <text x="30" y="65" fill="#e67e22" font-family="monospace" font-size="12">&lt;g id="claw" /&gt;</text>
+      <text x="20" y="85" fill="#e67e22" font-family="monospace" font-size="12">&lt;/g&gt;</text>
+      <text x="10" y="105" fill="#e67e22" font-family="monospace" font-size="12">&lt;/g&gt;</text>
+  </g>
+</svg>

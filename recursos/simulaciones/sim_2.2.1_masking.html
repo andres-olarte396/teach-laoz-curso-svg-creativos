@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulación: Mask vs ClipPath</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; background: #222; color: #eee; padding: 20px; }
+        .container { display: flex; gap: 40px; margin-top: 20px; }
+        .demo-box { text-align: center; }
+        .canvas { background: url('https://placeholder.pics/svg/300/300/DEDEDE/555555/image.svg'); background-size: cover; width: 300px; height: 300px; border: 2px solid #555; }
+        
+        .controls { margin-top: 20px; background: #333; padding: 20px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <h1>✂️ Recorte (Clip) vs Enmascarado (Mask)</h1>
+    <p>Observa la diferencia. El círculo de recorte es duro. El círculo de máscara tiene un gradiente.</p>
+
+    <div class="container">
+        <!-- ClipPath -->
+        <div class="demo-box">
+            <h3>clipPath</h3>
+            <svg width="300" height="300" class="canvas">
+                <defs>
+                    <clipPath id="myClip">
+                         <circle cx="150" cy="150" r="100" />
+                    </clipPath>
+                    
+                    <!-- Gradient for the Mask -->
+                    <linearGradient id="fadeRef" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="0%" stop-color="white" />
+                        <stop offset="100%" stop-color="black" />
+                    </linearGradient>
+                    
+                    <mask id="myMask">
+                        <!-- Mask content uses luminance. White = Visible, Black = Hidden -->
+                        <circle cx="150" cy="150" r="100" fill="url(#fadeRef)" />
+                    </mask>
+                </defs>
+
+                <!-- Valid image or simple colored rect pattern -->
+                <g clip-path="url(#myClip)">
+                    <rect width="300" height="300" fill="#e74c3c" />
+                    <text x="150" y="150" fill="white" text-anchor="middle" font-size="30">SOY CLIP</text>
+                    <text x="150" y="180" fill="white" text-anchor="middle" font-size="12">Borde Duro</text>
+                </g>
+            </svg>
+            <p>1 ó 0. Se ve o no se ve.</p>
+        </div>
+
+        <!-- Mask -->
+        <div class="demo-box">
+            <h3>mask</h3>
+            <svg width="300" height="300" class="canvas">
+                <g mask="url(#myMask)">
+                    <rect width="300" height="300" fill="#3498db" />
+                    <text x="150" y="150" fill="white" text-anchor="middle" font-size="30">SOY MASK</text>
+                     <text x="150" y="180" fill="white" text-anchor="middle" font-size="12">Transparencia Gradual</text>
+                </g>
+            </svg>
+             <p>Escala de Grises. Transparencia Parcial.</p>
+        </div>
+    </div>
+</body>
+</html>

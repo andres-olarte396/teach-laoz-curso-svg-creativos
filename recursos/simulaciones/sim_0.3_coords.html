@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulación: Coordenadas Cartesianas</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; background: #2c3e50; color: white; }
+        
+        #game-area {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            background: white;
+            border: 4px solid #34495e;
+            cursor: crosshair;
+            margin-top: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .axis-x { position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: red; text-align: right; }
+        .axis-y { position: absolute; top: 0; left: 0; width: 2px; height: 100%; background: blue; }
+        
+        .label-origin { position: absolute; top: 5px; left: 5px; color: #333; font-weight: bold; font-family: monospace; pointer-events: none;}
+        
+        #target-dot {
+            position: absolute; width: 10px; height: 10px; background: #e74c3c; border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            display: none;
+        }
+
+        #feedback { margin-top: 20px; font-size: 1.2rem; height: 30px; }
+        
+        .grid-line { position: absolute; background: #eee; }
+    </style>
+</head>
+<body>
+    <h1>📍 ¿Dónde está el punto?</h1>
+    <p>Haz clic en la coordenada: <strong id="target-coords" style="color: #f1c40f; font-size: 1.5rem;">(100, 100)</strong></p>
+
+    <div id="game-area">
+        <div class="axis-x"></div>
+        <div class="axis-y"></div>
+        <div class="label-origin">0,0</div>
+        
+        <!-- Grid visualization -->
+        <svg width="100%" height="100%" style="position: absolute; pointer-events: none;">
+            <defs>
+                <pattern id="smallGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#eee" stroke-width="1"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#smallGrid)" />
+        </svg>
+
+        <div id="target-dot"></div>
+    </div>
+
+    <div id="feedback">Posición actual del mouse: (0, 0)</div>
+
+    <script>
+        const gameArea = document.getElementById('game-area');
+        const feedback = document.getElementById('feedback');
+        const targetOutput = document.getElementById('target-coords');
+        const targetDot = document.getElementById('target-dot');
+
+        let targetX = 100;
+        let targetY = 100;
+        
+        function newRound() {
+            // Random coords multiple of 20
+            targetX = Math.floor(Math.random() * 18) * 20 + 20; // 20 to 380
+            targetY = Math.floor(Math.random() * 18) * 20 + 20; // 20 to 380
+            targetOutput.textContent = `(${targetX}, ${targetY})`;
+            targetDot.style.display = 'none';
+        }
+
+        gameArea.addEventListener('mousemove', (e) => {
+            const rect = gameArea.getBoundingClientRect();
+            const x = Math.round(e.clientX - rect.left);
+            const y = Math.round(e.clientY - rect.top);
+            feedback.textContent = `Posición actual del mouse: (${x}, ${y})`;
+        });
+
+        gameArea.addEventListener('click', (e) => {
+            const rect = gameArea.getBoundingClientRect();
+            const x = Math.round(e.clientX - rect.left);
+            const y = Math.round(e.clientY - rect.top);
+
+            const distance = Math.sqrt(Math.pow(x - targetX, 2) + Math.pow(y - targetY, 2));
+
+            // Show where they clicked
+            const clickMarker = document.createElement('div');
+            clickMarker.style.position = 'absolute';
+            clickMarker.style.left = x + 'px';
+            clickMarker.style.top = y + 'px';
+            clickMarker.style.width = '6px';
+            clickMarker.style.height = '6px';
+            clickMarker.style.background = 'black';
+            clickMarker.style.borderRadius = '50%';
+            clickMarker.style.transform = 'translate(-50%, -50%)';
+            clickMarker.style.pointerEvents = 'none';
+            gameArea.appendChild(clickMarker);
+
+            if(distance < 30) {
+                // Success
+                targetDot.style.left = targetX + 'px';
+                targetDot.style.top = targetY + 'px';
+                targetDot.style.display = 'block';
+                
+                alert(`¡Excelente! Estuviste a ${Math.round(distance)}px de distancia.`);
+                gameArea.innerHTML = ''; // Clear markers
+                // Restore basics
+                gameArea.innerHTML = `
+                    <div class="axis-x"></div>
+                    <div class="axis-y"></div>
+                    <div class="label-origin">0,0</div>
+                     <svg width="100%" height="100%" style="position: absolute; pointer-events: none;">
+                        <defs><pattern id="smallGrid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#eee" stroke-width="1"/></pattern></defs>
+                        <rect width="100%" height="100%" fill="url(#smallGrid)" />
+                    </svg>
+                    <div id="target-dot"></div>`;
+                newRound();
+            } else {
+                feedback.innerHTML = `<span style="color: #e74c3c">¡Fallaste! Click en (${x}, ${y}). Busca (${targetX}, ${targetY})</span>`;
+            }
+        });
+
+        newRound();
+    </script>
+</body>
+</html>

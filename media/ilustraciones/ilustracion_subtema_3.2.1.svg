@@ -1,0 +1,37 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .btn { cursor: pointer; transition: all 0.3s; }
+    .btn:hover rect { fill: #2ecc71; }
+    .btn:hover text { fill: white; }
+    .btn:active rect { fill: #27ae60; transform: scale(0.98); transform-origin: center; }
+    
+    .cursor {
+      animation: moveCursor 2s infinite alternate;
+    }
+    @keyframes moveCursor {
+      0% { transform: translate(300px, 300px); }
+      100% { transform: translate(260px, 260px); }
+    }
+  </style>
+
+  <rect width="100%" height="100%" fill="#ecf0f1" />
+
+  <!-- UI Mockup -->
+  <g transform="translate(150, 200)" class="btn">
+    <rect width="200" height="80" rx="40" fill="white" stroke="#2c3e50" stroke-width="4" />
+    <text x="100" y="50" text-anchor="middle" font-family="sans-serif" font-size="30" fill="#2c3e50" font-weight="bold">CLICK ME</text>
+  </g>
+
+  <!-- Cursor Graphic -->
+  <g class="cursor">
+    <polygon points="0,0 0,30 20,20 30,30 20,0" fill="black" stroke="white" stroke-width="2" />
+  </g>
+
+  <!-- Code Hint -->
+  <g transform="translate(50, 100)">
+    <text x="0" y="0" font-family="monospace" font-size="20" fill="#e74c3c">:hover</text>
+    <text x="0" y="30" font-family="monospace" font-size="20" fill="#e74c3c">onClick="..."</text>
+  </g>
+
+  <text x="250" y="450" text-anchor="middle" font-family="sans-serif" font-size="24" fill="#333" letter-spacing="2">INTERACTIVIDAD</text>
+</svg>

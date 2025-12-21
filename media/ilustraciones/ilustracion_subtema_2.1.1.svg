@@ -1,0 +1,35 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <!-- GRADIENT DEF -->
+    <radialGradient id="sphereGrad" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#fff" />
+      <stop offset="50%" stop-color="#3498db" />
+      <stop offset="100%" stop-color="#000" />
+    </radialGradient>
+    
+    <!-- SYMBOL DEF -->
+    <symbol id="star" viewBox="0 0 24 24">
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor" />
+    </symbol>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#2c3e50" />
+  
+  <!-- Title -->
+  <text x="250" y="450" text-anchor="middle" font-family="sans-serif" font-size="24" fill="#ecf0f1" letter-spacing="2">DEFINICIONES &amp; ESTILOS</text>
+
+  <!-- RE-USE EXAMPLES -->
+  <g transform="translate(50, 50)">
+    <!-- Sphere showing gradient -->
+    <circle cx="100" cy="150" r="80" fill="url(#sphereGrad)" />
+    
+    <!-- Reusing symbols -->
+    <use xlink:href="#star" href="#star" x="250" y="50" width="60" height="60" fill="#f1c40f" />
+    <use xlink:href="#star" href="#star" x="320" y="80" width="40" height="40" fill="#f39c12" transform="rotate(20, 340, 100)" />
+    <use xlink:href="#star" href="#star" x="220" y="120" width="30" height="30" fill="#e67e22" />
+    
+    <!-- Code hint -->
+    <text x="250" y="200" fill="#bdc3c7" font-family="monospace" font-size="14">&lt;use href="#star" /&gt;</text>
+    <text x="60" y="250" fill="#bdc3c7" font-family="monospace" font-size="14">url(#sphereGrad)</text>
+  </g>
+</svg>

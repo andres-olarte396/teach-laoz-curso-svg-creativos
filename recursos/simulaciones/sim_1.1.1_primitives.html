@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulación: Primitivas SVG</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; background: #fafafa; }
+        .container { display: flex; gap: 20px; margin-top: 20px; flex-wrap: wrap; justify-content: center; }
+        .canvas { border: 1px solid #ccc; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .controls { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 300px; }
+        .control-group { margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
+        input[type=range] { width: 100%; }
+        select { width: 100%; padding: 5px; font-size: 1rem; }
+        code { background: #eee; padding: 2px 5px; border-radius: 3px; color: #c7254e; }
+        .code-preview { background: #2d2d2d; color: #ccc; padding: 10px; border-radius: 5px; font-family: monospace; margin-top: 10px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <h1>📐 Laboratorio de Formas</h1>
+    
+    <div class="container">
+        <div class="controls">
+            <div class="control-group">
+                <label>Forma:</label>
+                <select id="shape-selector">
+                    <option value="rect">Rectángulo (&lt;rect&gt;)</option>
+                    <option value="circle">Círculo (&lt;circle&gt;)</option>
+                    <option value="ellipse">Elipse (&lt;ellipse&gt;)</option>
+                    <option value="line">Línea (&lt;line&gt;)</option>
+                </select>
+            </div>
+
+            <!-- Dynamic Controls Container -->
+            <div id="dynamic-controls"></div>
+            
+            <div class="control-group">
+                <label>Relleno (Fill):</label>
+                <input type="color" id="fill-color" value="#3498db">
+            </div>
+            <div class="control-group">
+                <label>Borde (Stroke):</label>
+                <input type="color" id="stroke-color" value="#2c3e50">
+                <input type="range" id="stroke-width" min="0" max="10" value="2">
+            </div>
+        </div>
+
+        <div>
+            <svg id="canvas" width="400" height="400" class="canvas">
+                <defs>
+                   <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#f0f0f0" stroke-width="1"/>
+                   </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid)" />
+                
+                <!-- The Shape -->
+                <g id="shape-render"></g>
+            </svg>
+            <div class="code-preview" id="code-output"></div>
+        </div>
+    </div>
+
+    <script>
+        const shapeSelector = document.getElementById('shape-selector');
+        const activeContainer = document.getElementById('shape-render');
+        const dynamicControls = document.getElementById('dynamic-controls');
+        const codeOutput = document.getElementById('code-output');
+
+        const commonProps = {
+            fill: document.getElementById('fill-color'),
+            stroke: document.getElementById('stroke-color'),
+            strokeWidth: document.getElementById('stroke-width')
+        };
+
+        const schemas = {
+            rect: [
+                { name: 'x', min: 0, max: 300, val: 50 },
+                { name: 'y', min: 0, max: 300, val: 50 },
+                { name: 'width', min: 10, max: 300, val: 100 },
+                { name: 'height', min: 10, max: 300, val: 100 },
+                { name: 'rx', min: 0, max: 50, val: 0, label: 'Radio Borde (rx)' }
+            ],
+            circle: [
+                { name: 'cx', min: 0, max: 400, val: 200 },
+                { name: 'cy', min: 0, max: 400, val: 200 },
+                { name: 'r', min: 10, max: 150, val: 50 }
+            ],
+            ellipse: [
+                { name: 'cx', min: 0, max: 400, val: 200 },
+                { name: 'cy', min: 0, max: 400, val: 200 },
+                { name: 'rx', min: 10, max: 150, val: 80 },
+                { name: 'ry', min: 10, max: 150, val: 40 }
+            ],
+            line: [
+                { name: 'x1', min: 0, max: 400, val: 50 },
+                { name: 'y1', min: 0, max: 400, val: 50 },
+                { name: 'x2', min: 0, max: 400, val: 350 },
+                { name: 'y2', min: 0, max: 400, val: 350 }
+            ]
+        };
+
+        let currentParams = {};
+
+        function renderControls(type) {
+            dynamicControls.innerHTML = '';
+            const schema = schemas[type];
+            currentParams = {};
+
+            schema.forEach(param => {
+                const div = document.createElement('div');
+                div.className = 'control-group';
+                div.innerHTML = `
+                    <label>${param.label || param.name}: <span id="val-${param.name}">${param.val}</span></label>
+                    <input type="range" id="inp-${param.name}" min="${param.min}" max="${param.max}" value="${param.val}">
+                `;
+                dynamicControls.appendChild(div);
+
+                const inp = div.querySelector('input');
+                currentParams[param.name] = param.val;
+                
+                inp.addEventListener('input', (e) => {
+                    currentParams[param.name] = e.target.value;
+                    document.getElementById(`val-${param.name}`).textContent = e.target.value;
+                    draw();
+                });
+            });
+            draw();
+        }
+
+        function draw() {
+            const type = shapeSelector.value;
+            activeContainer.innerHTML = '';
+            
+            const el = document.createElementNS("http://www.w3.org/2000/svg", type);
+            
+            let codeAttrs = '';
+
+            // Apply geometric attributes
+            for (const [key, value] of Object.entries(currentParams)) {
+                el.setAttribute(key, value);
+                codeAttrs += ` ${key}="${value}"`;
+            }
+
+            // Apply styles
+            el.setAttribute('fill', commonProps.fill.value);
+            el.setAttribute('stroke', commonProps.stroke.value);
+            el.setAttribute('stroke-width', commonProps.strokeWidth.value);
+
+            let styleAttrs = ` fill="${commonProps.fill.value}" stroke="${commonProps.stroke.value}" stroke-width="${commonProps.strokeWidth.value}"`;
+             
+            if (type === 'line') {
+                 // Lines don't have fill
+                 el.setAttribute('fill', 'none');
+                 styleAttrs = ` stroke="${commonProps.stroke.value}" stroke-width="${commonProps.strokeWidth.value}"`;
+            }
+
+            activeContainer.appendChild(el);
+            codeOutput.textContent = `<${type}${codeAttrs}\n   ${styleAttrs} />`;
+        }
+
+        // Listeners for common props
+        [commonProps.fill, commonProps.stroke, commonProps.strokeWidth].forEach(el => {
+            el.addEventListener('input', draw);
+        });
+
+        shapeSelector.addEventListener('change', () => renderControls(shapeSelector.value));
+
+        // Init
+        renderControls('rect');
+
+    </script>
+</body>
+</html>

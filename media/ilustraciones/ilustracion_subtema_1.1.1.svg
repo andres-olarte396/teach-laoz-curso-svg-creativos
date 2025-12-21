@@ -1,0 +1,47 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#EE5253;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="#00000040" />
+    </filter>
+  </defs>
+
+  <!-- Background Grid -->
+  <defs>
+    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#f0f0f0" stroke-width="2"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#grid)" />
+
+  <!-- Title -->
+  <text x="250" y="450" text-anchor="middle" font-family="sans-serif" font-size="24" fill="#333" letter-spacing="2">PRIMITIVAS</text>
+
+  <!-- Geometric Composition (Fox/Abstract Shapes) -->
+  <g transform="translate(100, 100)" filter="url(#shadow)">
+    <!-- Rect -->
+    <rect x="50" y="50" width="100" height="100" rx="10" fill="#4ECDC4" transform="rotate(-15, 100, 100)" />
+    <!-- Circle -->
+    <circle cx="200" cy="100" r="60" fill="#FFE66D" fill-opacity="0.9" />
+    <!-- Polygon -->
+    <polygon points="150,200 250,200 200,100" fill="url(#grad1)" opacity="0.9"/>
+    <!-- Line -->
+    <line x1="50" y1="250" x2="250" y2="250" stroke="#1A535C" stroke-width="5" stroke-linecap="round" stroke-dasharray="10 10"/>
+    <!-- Ellipse -->
+    <ellipse cx="250" cy="200" rx="30" ry="80" fill="none" stroke="#FF6B6B" stroke-width="3" transform="rotate(45, 250, 200)"/>
+  </g>
+
+  <!-- Labels connecting to code concepts -->
+  <g font-family="monospace" font-size="12" fill="#555">
+    <text x="40" y="160">&lt;rect&gt;</text>
+    <line x1="90" y1="155" x2="120" y2="130" stroke="#ccc" />
+    
+    <text x="270" y="80">&lt;circle&gt;</text>
+    <line x1="265" y1="85" x2="240" y2="100" stroke="#ccc" />
+    
+    <text x="40" y="260">&lt;line&gt;</text>
+  </g>
+</svg>

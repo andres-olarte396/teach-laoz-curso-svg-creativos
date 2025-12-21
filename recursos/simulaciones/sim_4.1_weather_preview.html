@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Preview: Widget Clima Marte</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: #000; color: white; margin: 0; }
+        
+        .widget-container {
+            width: 320px;
+            height: 500px;
+            background: linear-gradient(to bottom, #2c3e50, #000000);
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(192, 57, 43, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Simulate the SVG Widget being responsive */
+        svg { width: 100%; height: 100%; }
+        
+        .status { margin-top: 20px; color: #aaa; }
+    </style>
+</head>
+<body>
+    <div class="widget-container">
+        <!-- MARS WEATHER WIDGET -->
+        <svg viewBox="0 0 320 500">
+            <defs>
+                <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#e67e22" />
+                    <stop offset="100%" stop-color="#8e44ad" />
+                </linearGradient>
+                
+                <mask id="mountainMask">
+                    <rect width="320" height="500" fill="white" />
+                    <!-- Mountains -->
+                    <path d="M 0 350 L 80 250 L 160 320 L 240 280 L 320 380 V 500 H 0 Z" fill="black" />
+                </mask>
+            </defs>
+            
+            <!-- Background -->
+            <rect width="100%" height="100%" fill="url(#bgGrad)" />
+            
+            <!-- Sun/Planet -->
+            <circle cx="250" cy="100" r="40" fill="#f1c40f" opacity="0.8">
+                <animate attributeName="cy" values="100;110;100" dur="5s" repeatCount="indefinite" />
+            </circle>
+
+            <!-- Mountains (Silhouette) -->
+            <path d="M -50 400 L 80 280 L 160 350 L 240 310 L 350 420 V 520 H -50 Z" fill="#2c3e50" opacity="0.9" />
+            <path d="M 0 500 L 100 380 L 200 450 L 320 500 Z" fill="#1a1a1a" opacity="1" />
+
+            <!-- Text Data -->
+            <text x="20" y="50" font-family="sans-serif" fill="white" font-size="14" opacity="0.7">SOL 4392</text>
+            <text x="20" y="90" font-family="sans-serif" fill="white" font-size="48" font-weight="bold">-63°</text>
+            <text x="20" y="120" font-family="sans-serif" fill="white" font-size="14">GALE CRATER</text>
+
+            <!-- Loader / Connection Status -->
+            <g transform="translate(280, 40)">
+                <circle r="5" fill="#2ecc71">
+                    <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite" />
+                </circle>
+            </g>
+            
+            <!-- Data Grid -->
+            <line x1="20" y1="350" x2="300" y2="350" stroke="white" stroke-opacity="0.2" />
+            <g transform="translate(20, 380)">
+                <text fill="white" font-size="12" opacity="0.6">WIND</text>
+                <text y="20" fill="white" font-size="16">14 km/h</text>
+            </g>
+            <g transform="translate(120, 380)">
+                <text fill="white" font-size="12" opacity="0.6">PRESSURE</text>
+                <text y="20" fill="white" font-size="16">720 Pa</text>
+            </g>
+             <g transform="translate(220, 380)">
+                <text fill="white" font-size="12" opacity="0.6">UV</text>
+                <text y="20" fill="white" font-size="16">HIGH</text>
+            </g>
+
+        </svg>
+    </div>
+    
+    <div class="status">Resultado Final del Curso</div>
+</body>
+</html>
