@@ -1,0 +1,9 @@
+Una web que no reacciona se siente rota. Estamos acostumbrados a tocar, deslizar y hacer clic. SVG no es un JPG estático. Es código vivo en el navegador. Y eso significa que puede sentir tus clics y responder.
+
+El primer nivel de interacción no requiere JavaScript. Son los reflejos del SVG. Usamos pseudo-clases de CSS. Hover: Para cuando pasas el mouse por encima. Active: Para el momento del clic. Y no olvides cursor pointer. Sin esa manita, nadie sabrá que es un botón.
+
+Un secreto de profesional: La Ley de Fitts. Hacer clic en una línea de 1 pixel es una pesadilla de usabilidad. ¿La solución? Dibuja una forma transparente gruesa encima de tu línea fina. El usuario verá la línea elegante, pero hará clic en la forma gorda invisible. Eso es una buena experiencia de usuario.
+
+Para cosas más complejas, como un mapa donde al hacer clic en un país sale su información, usamos JavaScript. No necesitas librerías raras. Un simple addEventListener click funciona perfecto en cualquier elemento SVG. Puedes cambiar atributos, lanzar animaciones, o cargar datos. El límite es tu imaginación.
+
+Con esto cerramos el ciclo técnico. Has aprendido a trazar, a pintar y a dar vida. Ahora tienes todas las piezas. Es hora de ensamblarlas. En el próximo paso, tú serás el arquitecto. Vas a construir el Proyecto Final. ¡El editor te espera!
