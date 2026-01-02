@@ -6,25 +6,25 @@
 
 En un archivo SVG, si escribes primero el código del `Fondo` y después el código del `Botón`, ¿cuál aparece encima visualmente?
 
-- [ ] a) El Fondo (quedan en orden inverso).
-- [ ] b) El Botón (principio del pintor: lo último tapa a lo anterior).
-- [ ] c) Depende de su `z-index`.
+- a) El Fondo (quedan en orden inverso).
+- b) El Botón (principio del pintor: lo último tapa a lo anterior).
+- c) Depende de su `z-index`.
 
 ### Pregunta 2: Uso de Defs
 
 ¿Cuál es la razón principal para mover una forma compleja dentro de `<defs>`?
 
-- [ ] a) Para que se dibuje automáticamente en el centro.
-- [ ] b) Para ocultarla y poder reutilizarla/clonarla múltiples veces sin repetir código.
-- [ ] c) Para mejorar el color.
+- a) Para que se dibuje automáticamente en el centro.
+- b) Para ocultarla y poder reutilizarla/clonarla múltiples veces sin repetir código.
+- c) Para mejorar el color.
 
 ### Pregunta 3: Estructura Mantenible
 
 Si estás construyendo una interfaz compleja, ¿qué es mejor práctica?
 
-- [ ] a) Poner todos los paths en la raíz para ahorrar caracteres.
-- [ ] b) Agrupar elementos relacionados en `<g>` con IDs descriptivos (`id="menu"`, `id="logo"`).
-- [ ] c) Usar múltiples archivos SVG y unirlos con iframes.
+- a) Poner todos los paths en la raíz para ahorrar caracteres.
+- b) Agrupar elementos relacionados en `<g>` con IDs descriptivos (`id="menu"`, `id="logo"`).
+- c) Usar múltiples archivos SVG y unirlos con iframes.
 
 ---
 

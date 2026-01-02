@@ -7,25 +7,25 @@
 Estás definiendo una `mask` (máscara de luminancia).
 Pintas un círculo ROJO puro (`#FF0000`). ¿Cómo afecta a la visibilidad?
 
-- [ ] a) Lo hace rojo.
-- [ ] b) Es invisible (como el negro).
-- [ ] c) Es parcialmente visible (basado en cuán "claro" es el color rojo).
+- a) Lo hace rojo.
+- b) Es invisible (como el negro).
+- c) Es parcialmente visible (basado en cuán "claro" es el color rojo).
 
 ### Pregunta 2: Bordes Suaves
 
 ¿Qué herramienta DEBES usar si quieres que los bordes de tu imagen se difuminen suavemente hasta desaparecer?
 
-- [ ] a) `<clipPath>`
-- [ ] b) `<mask>`
-- [ ] c) `<filter>`
+- a) `<clipPath>`
+- b) `<mask>`
+- c) `<filter>`
 
 ### Pregunta 3: El Atributo de Unión
 
 ¿Qué atributo pones en el elemento que quieres recortar para aplicarle un clipPath definido con `id="corte"`?
 
-- [ ] a) `clip-path="url(#corte)"`
-- [ ] b) `clip="corte"`
-- [ ] c) `path="url(#corte)"`
+- a) `clip-path="url(#corte)"`
+- b) `clip="corte"`
+- c) `path="url(#corte)"`
 
 ---
 

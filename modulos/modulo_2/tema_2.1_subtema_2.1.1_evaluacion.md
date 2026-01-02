@@ -6,17 +6,17 @@
 
 Si coloco un `<circle>` dentro de una etiqueta `<defs>`, ¿qué se ve en la pantalla por defecto?
 
-- [ ] a) Un círculo negro.
-- [ ] b) Nada.
-- [ ] c) Un círculo transparente.
+- a) Un círculo negro.
+- b) Nada.
+- c) Un círculo transparente.
 
 ### Pregunta 2: El Clonador
 
 ¿Qué atributo se usa en `<use>` para seleccionar qué elemento vamos a clonar?
 
-- [ ] a) `src`
-- [ ] b) `id`
-- [ ] c) `href`
+- a) `src`
+- b) `id`
+- c) `href`
 
 ### Pregunta 3: Dominancia de Estilo
 
@@ -24,9 +24,9 @@ Tienes un original: `<circle id="c" fill="red" />`.
 Haces un uso: `<use href="#c" fill="blue" />`.
 ¿De qué color sale el clon?
 
-- [ ] a) Azul, porque el uso sobrescribe.
-- [ ] b) Rojo, porque el original tiene un estilo explícito que gana por especificidad.
-- [ ] c) Morado, se mezclan.
+- a) Azul, porque el uso sobrescribe.
+- b) Rojo, porque el original tiene un estilo explícito que gana por especificidad.
+- c) Morado, se mezclan.
 
 ---
 

@@ -6,25 +6,25 @@
 
 ¿Qué hace el comando `Z` al final de un path?
 
-- [ ] a) Deshace la última línea.
-- [ ] b) Dibuja una línea en forma de Z.
-- [ ] c) Cierra el trazado conectando el punto actual con el punto de inicio.
+- a) Deshace la última línea.
+- b) Dibuja una línea en forma de Z.
+- c) Cierra el trazado conectando el punto actual con el punto de inicio.
 
 ### Pregunta 2: Relatividad
 
 Si estoy en `(50, 50)` y ejecuto el comando `l 10 0` (ele minúscula), ¿dónde termina mi pluma?
 
-- [ ] a) En `(10, 0)`
-- [ ] b) En `(60, 50)`
-- [ ] c) En `(10, 50)`
+- a) En `(10, 0)`
+- b) En `(60, 50)`
+- c) En `(10, 50)`
 
 ### Pregunta 3: Sintaxis
 
 Señala el path VÁLIDO:
 
-- [ ] a) `<path d="M 10 10 L 50 50" />`
-- [ ] b) `<path points="10,10 50,50" />`
-- [ ] c) `<path x="10" y="10" to="50,50" />`
+- a) `<path d="M 10 10 L 50 50" />`
+- b) `<path points="10,10 50,50" />`
+- c) `<path x="10" y="10" to="50,50" />`
 
 ---
 

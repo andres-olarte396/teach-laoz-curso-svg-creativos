@@ -8,25 +8,25 @@ Si tu SVG tiene `width="100"` y `height="100"`.
 Pero su `viewBox="0 0 50 50"`.
 ¿Cómo se verán los elementos dentro?
 
-- [ ] a) Se verán a mitad de tamaño (pequeños).
-- [ ] b) Se verán al doble de tamaño (Zoom in 2x).
-- [ ] c) Se deformarán.
+- a) Se verán a mitad de tamaño (pequeños).
+- b) Se verán al doble de tamaño (Zoom in 2x).
+- c) Se deformarán.
 
 ### Pregunta 2: Accesibilidad
 
 ¿Qué etiqueta es fundamental para que Google indexe tu SVG y los ciegos sepan qué es?
 
-- [ ] a) `<meta name="description">`
-- [ ] b) `<alt>`
-- [ ] c) `<title>` y `<desc>` dentro del SVG.
+- a) `<meta name="description">`
+- b) `<alt>`
+- c) `<title>` y `<desc>` dentro del SVG.
 
 ### Pregunta 3: Performance
 
 Si tienes 50 estrellas idénticas en tu cielo nocturno. ¿Qué es mejor para el rendimiento?
 
-- [ ] a) Copiar y pegar el código del círculo 50 veces (`<circle>...`).
-- [ ] b) Definir el círculo en `<defs>` y usar `<use>` 50 veces.
-- [ ] c) Usar 50 imágenes `.png` incrustadas.
+- a) Copiar y pegar el código del círculo 50 veces (`<circle>...`).
+- b) Definir el círculo en `<defs>` y usar `<use>` 50 veces.
+- c) Usar 50 imágenes `.png` incrustadas.
 
 ---
 

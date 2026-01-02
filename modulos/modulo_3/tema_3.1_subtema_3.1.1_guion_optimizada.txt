@@ -1,9 +1,0 @@
-Un gráfico vectorial estático es hermoso. Pero un gráfico vectorial que se mueve, respira y cuenta una historia, eso es magia. Y no necesitas aprender software complejo como After Effects. Si sabes CSS, ya tienes la varita mágica.
-
-Todo empieza con la regla estándar de CSS: arroba Keyframes. Defines momentos en el tiempo: Inicio y Fin. ¿Qué podemos animar? Casi todo lo que tenga que ver con apariencia. Colores para hacer luces parpadeantes. Opacidad para apariciones fantasmales. Y transformaciones, escalar, rotar, trasladar, para mover cosas.
-
-Pero hay un truco exclusivo de SVG que tienes que conocer. El Efecto de Dibujado. Funciona manipulando el borde de la línea. Uno, Conviertes la línea continua en una línea punteada. Dos, Haces que el punto y el espacio sean tan largos como la línea entera. Tres, Mueves el trazo hasta que solo se vea el espacio vacío. Cuatro, Animas ese desplazamiento a cero. ¡Voilá! La línea parece dibujarse sola.
-
-Una advertencia crucial. Cuando rotas un DIV en HTML, rota sobre su centro. Fácil. Cuando rotas un paz en SVG, a veces rota sobre la esquina superior izquierda del lienzo y sale volando. Para arreglarlo, recuerda este hechizo CSS: transform-box fill-box, y transform-origin center. Esto obliga al SVG a comportarse como un elemento HTML normal y rotar sobre su propio eje.
-
-La animación CSS es performante, ligera y funciona en todos lados. Da vida a tus iconos. Haz que tus logos latan. Pero recuerda: Un gran poder conlleva una gran responsabilidad. No marees al usuario con mil cosas moviéndose a la vez. Úsalo con sutileza.

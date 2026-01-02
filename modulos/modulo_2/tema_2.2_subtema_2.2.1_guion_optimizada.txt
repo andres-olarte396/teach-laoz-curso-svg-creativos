@@ -1,9 +1,0 @@
-En el arte, lo que ocultas es tan importante como lo que muestras. A veces quieres recortar una foto para que sea redonda. A veces quieres que un fantasma se desvanezca en la niebla. Para eso, SVG nos da dos herramientas de ocultación: El clip paz, las tijeras, y la mask, el cristal mágico.
-
-El clip paz es binario. O estás dentro, o estás fuera. Imagina que tomas una hoja de papel y recortas una estrella con tijeras. Si pones ese papel recortado sobre una foto, solo verás la parte de la foto que coincide con la estrella. Los bordes son duros, afilados. No hay grises. Es perfecto para avatares redondos o formas geométricas complejas.
-
-Pero, ¿y si quieres suavidad? ¿Y si quieres transparencia gradual? Ahí entra la mask. La máscara funciona con Luminancia. Lo que pintes de Blanco en la máscara, será totalmente visible. Lo que pintes de Negro, será invisible. Y lo que pintes de Gris, será semitransparente.
-
-El truco clásico es usar un gradiente de blanco a negro dentro de una máscara. Al aplicar esa máscara a cualquier objeto, crearás un efecto de desvanecimiento suave profesional. Es algo que clip paz simplemente no puede hacer.
-
-¡Felicidades! Has completado el Módulo 2. Ya dominas definiciones, uso, gradientes, recortes y máscaras. Has pasado de dibujar líneas simples a crear composiciones ricas con volumen y efectos visuales. En el próximo módulo, el Módulo 3, haremos que todo esto cobre vida. Vamos a mover las cosas. Prepárate para la Animación.

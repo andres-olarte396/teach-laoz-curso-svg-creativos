@@ -6,25 +6,25 @@
 
 ¿Cuántos pares de coordenadas (puntos) necesitas especificar después del comando `C` (Cúbica)?
 
-- [ ] a) 1 (Destino)
-- [ ] b) 2 (Control + Destino)
-- [ ] c) 3 (Control1 + Control2 + Destino)
+- a) 1 (Destino)
+- b) 2 (Control + Destino)
+- c) 3 (Control1 + Control2 + Destino)
 
 ### Pregunta 2: Curvas Suaves
 
 Para hacer una curva con forma de "S" perfecta en un solo comando, ¿cuál primitiva DEBES usar?
 
-- [ ] a) `L` (Line)
-- [ ] b) `Q` (Quadratic)
-- [ ] c) `C` (Cubic)
+- a) `L` (Line)
+- b) `Q` (Quadratic)
+- c) `C` (Cubic)
 
 ### Pregunta 3: El Atajo T
 
 ¿Qué hace el comando `T`?
 
-- [ ] a) Termina el path.
-- [ ] b) Crea una curva Cuadrática asumiendo el punto de control reflejado del anterior.
-- [ ] c) Crea texto en el path.
+- a) Termina el path.
+- b) Crea una curva Cuadrática asumiendo el punto de control reflejado del anterior.
+- c) Crea texto en el path.
 
 ---
 
